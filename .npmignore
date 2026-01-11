@@ -1,0 +1,26 @@
+# Source control
+.git/
+.gitignore
+
+# Testing
+coverage/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CI
+.github/
+
+# Documentation (optional, remove if you want to include)
+docs/
+
+# Misc
+.DS_Store
+*.log
