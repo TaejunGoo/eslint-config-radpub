@@ -1,11 +1,12 @@
 {
   "name": "eslint-config-radpub",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Core ESLint configuration for TypeScript + React + Next.js projects (framework-agnostic)",
   "type": "module",
   "main": "./index.mjs",
   "exports": {
     ".": "./index.mjs",
+    "./standalone": "./index.mjs",
     "./base": "./eslint/base.mjs",
     "./typescript": "./eslint/typescript.mjs",
     "./security": "./eslint/security.mjs",
