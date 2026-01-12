@@ -42,7 +42,8 @@ import typescript from "./eslint/typescript.mjs";
  * - 보안 규칙
  * - 웹 접근성
  * - 코드 스타일 일관성
- * - Tailwind CSS 최적화
+ *
+ * Tailwind CSS는 선택적으로 추가하세요 (아래 with-tailwind export 참고)
  */
 const radpubConfig = [
   ...base,
@@ -51,6 +52,20 @@ const radpubConfig = [
   ...security,
   ...stylistic,
   // ...imports,     // Next.js가 이미 제공 (충돌 방지)
+  // ...tailwind,    // 선택 사항
+  ...ignores,
+];
+
+/**
+ * Tailwind CSS 포함 설정 (Next.js + Tailwind 프로젝트용)
+ */
+const withTailwindConfig = [
+  ...base,
+  // ...typescript,
+  ...accessibility,
+  ...security,
+  ...stylistic,
+  // ...imports,
   ...tailwind,
   ...ignores,
 ];
@@ -62,6 +77,20 @@ const radpubConfig = [
  * Vite, CRA 등 Next.js 외의 프로젝트에서 사용
  */
 const standaloneConfig = [
+  ...base,
+  ...typescript,
+  ...accessibility,
+  ...security,
+  ...stylistic,
+  ...imports,
+  // ...tailwind,  // 선택 사항
+  ...ignores,
+];
+
+/**
+ * Standalone + Tailwind 설정
+ */
+const standaloneWithTailwindConfig = [
   ...base,
   ...typescript,
   ...accessibility,
@@ -82,7 +111,9 @@ export {
   imports,
   security,
   standaloneConfig as standalone,
+  standaloneWithTailwindConfig as standaloneWithTailwind,
   stylistic,
   tailwind,
   typescript,
+  withTailwindConfig as withTailwind,
 };
