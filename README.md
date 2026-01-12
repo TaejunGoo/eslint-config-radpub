@@ -35,7 +35,11 @@ export default radpub;
 
 ### Next.js 프로젝트
 
-Next.js 프로젝트에서는 별도의 nextjs export를 사용하세요:
+Next.js 프로젝트에서는 먼저 추가 의존성을 설치하세요:
+
+```bash
+pnpm add -D eslint-config-radpub eslint eslint-config-next
+```
 
 `eslint.config.mjs`:
 
@@ -45,7 +49,7 @@ import radpubNextjs from "eslint-config-radpub/nextjs";
 export default radpubNextjs;
 ```
 
-**주의:** Next.js 설정을 사용하려면 `next` 패키지가 설치되어 있어야 합니다.
+**참고:** Next.js 프로젝트라면 보통 `next`와 `eslint-config-next`가 이미 설치되어 있습니다.
 
 ### 개별 모듈 사용
 
