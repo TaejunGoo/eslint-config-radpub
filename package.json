@@ -1,16 +1,13 @@
 {
   "name": "eslint-config-radpub",
-  "version": "1.1.0",
-  "description": "Shared ESLint configuration for Next.js + TypeScript + React projects",
+  "version": "2.0.0",
+  "description": "Core ESLint configuration for TypeScript + React + Next.js projects (framework-agnostic)",
   "type": "module",
   "main": "./index.mjs",
   "exports": {
     ".": "./index.mjs",
-    "./nextjs": "./nextjs.mjs",
     "./base": "./eslint/base.mjs",
     "./typescript": "./eslint/typescript.mjs",
-    "./react": "./eslint/react.mjs",
-    "./next": "./eslint/next.mjs",
     "./security": "./eslint/security.mjs",
     "./imports": "./eslint/imports.mjs",
     "./tailwind": "./eslint/tailwind.mjs",
@@ -21,7 +18,6 @@
   "files": [
     "eslint",
     "index.mjs",
-    "nextjs.mjs",
     "README.md"
   ],
   "keywords": [
@@ -43,17 +39,7 @@
     "url": "https://github.com/your-username/eslint-config-radpub/issues"
   },
   "peerDependencies": {
-    "eslint": "^9.0.0",
-    "eslint-config-next": ">=15.0.0",
-    "next": ">=15.0.0"
-  },
-  "peerDependenciesMeta": {
-    "eslint-config-next": {
-      "optional": true
-    },
-    "next": {
-      "optional": true
-    }
+    "eslint": "^9.0.0"
   },
   "dependencies": {
     "@eslint/js": "^9.39.1",

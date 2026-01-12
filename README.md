@@ -1,17 +1,21 @@
 # eslint-config-radpub
 
-TypeScript + React를 위한 공유 ESLint 설정 패키지
+TypeScript + React + Next.js 프로젝트를 위한 핵심 ESLint 설정 패키지
 
 ## 특징
 
+이 패키지는 **React/Next.js 자체 규칙을 제외**하고, 다음 핵심 규칙만 제공합니다:
+
 - ✅ **TypeScript** - 엄격한 타입 체크 및 모범 사례
-- ✅ **React 19** - 화살표 함수 컴포넌트, self-closing 태그
-- ✅ **Next.js 지원** - 선택적 Next.js 규칙 (Core Web Vitals, Image/Link 최적화)
-- ✅ **Tailwind CSS** - 클래스 순서, 중복 감지, 단축 클래스
-- ✅ **접근성 (a11y)** - ARIA, 키보드 탐색, 시맨틱 HTML
 - ✅ **보안** - XSS 방지, 코드 인젝션 방지
-- ✅ **Import 정렬** - 자동 정렬 및 그룹화
+- ✅ **접근성 (a11y)** - ARIA, 키보드 탐색, 시맨틱 HTML
 - ✅ **코드 스타일** - 일관된 들여쓰기, 따옴표, 세미콜론
+- ✅ **Import 정렬** - 자동 정렬 및 그룹화
+- ✅ **Tailwind CSS** - 클래스 순서, 중복 감지, 단축 클래스
+
+> **왜 React/Next.js 규칙이 없나요?**
+> React와 Next.js는 이미 자체 ESLint 설정(`eslint-config-next`)을 제공합니다.
+> `eslint-config-radpub`은 프레임워크 규칙과 독립적으로 작동하는 코어 규칙만 제공하여 충돌을 방지합니다.
 
 ## 설치
 
@@ -21,9 +25,41 @@ pnpm add -D eslint-config-radpub eslint
 
 ## 사용 방법
 
-### 기본 사용 (React/TypeScript 프로젝트)
+### Next.js 프로젝트
 
-일반 React 또는 TypeScript 프로젝트에서 사용:
+Next.js 기본 설정과 함께 사용:
+
+`eslint.config.mjs`:
+
+```js
+import next from "eslint-config-next/core-web-vitals";
+import radpub from "eslint-config-radpub";
+
+export default [
+  ...next,
+  ...radpub,
+];
+```
+
+### React 프로젝트 (Vite, CRA 등)
+
+React 기본 설정과 함께 사용:
+
+`eslint.config.mjs`:
+
+```js
+import react from "eslint-plugin-react/configs/recommended.js";
+import radpub from "eslint-config-radpub";
+
+export default [
+  react,
+  ...radpub,
+];
+```
+
+### TypeScript 전용 프로젝트
+
+React 없이 TypeScript만 사용하는 경우:
 
 `eslint.config.mjs`:
 
@@ -33,24 +69,6 @@ import radpub from "eslint-config-radpub";
 export default radpub;
 ```
 
-### Next.js 프로젝트
-
-Next.js 프로젝트에서는 먼저 추가 의존성을 설치하세요:
-
-```bash
-pnpm add -D eslint-config-radpub eslint eslint-config-next
-```
-
-`eslint.config.mjs`:
-
-```js
-import radpubNextjs from "eslint-config-radpub/nextjs";
-
-export default radpubNextjs;
-```
-
-**참고:** Next.js 프로젝트라면 보통 `next`와 `eslint-config-next`가 이미 설치되어 있습니다.
-
 ### 개별 모듈 사용
 
 필요한 규칙만 선택적으로 사용할 수 있습니다:
@@ -58,14 +76,12 @@ export default radpubNextjs;
 ```js
 import base from "eslint-config-radpub/base";
 import typescript from "eslint-config-radpub/typescript";
-import react from "eslint-config-radpub/react";
-import next from "eslint-config-radpub/next";
+import security from "eslint-config-radpub/security";
 
 export default [
   ...base,
   ...typescript,
-  ...react,
-  ...next,
+  ...security,
 ];
 ```
 
@@ -73,8 +89,6 @@ export default [
 
 - `eslint-config-radpub/base` - JavaScript/TypeScript 기본 규칙
 - `eslint-config-radpub/typescript` - TypeScript 엄격성 규칙
-- `eslint-config-radpub/react` - React 전용 규칙
-- `eslint-config-radpub/next` - Next.js 최적화 규칙
 - `eslint-config-radpub/security` - 보안 규칙
 - `eslint-config-radpub/accessibility` - 웹 접근성 규칙
 - `eslint-config-radpub/stylistic` - 코드 스타일 규칙
@@ -87,22 +101,23 @@ export default [
 기본 설정을 확장하여 프로젝트별 규칙을 추가할 수 있습니다:
 
 ```js
+import next from "eslint-config-next/core-web-vitals";
 import radpub from "eslint-config-radpub";
 
 export default [
+  ...next,
   ...radpub,
   {
     rules: {
       // 프로젝트별 규칙 오버라이드
       "no-console": "off",
+      "@typescript-eslint/no-explicit-any": "error", // warn → error로 강화
     },
   },
 ];
 ```
 
 ## 필수 의존성
-
-이 패키지는 다음 패키지들을 peer dependency로 사용합니다:
 
 - `eslint` ^9.0.0
 
@@ -111,7 +126,6 @@ export default [
 - `@eslint/js`
 - `@stylistic/eslint-plugin`
 - `typescript-eslint`
-- `eslint-config-next`
 - `eslint-plugin-import`
 - `eslint-plugin-better-tailwindcss`
 
@@ -121,15 +135,23 @@ export default [
 
 ### TypeScript
 
-- any 타입 명시적 사용 방지
-- 타입 import 분리
+- any 타입 명시적 사용 방지 (warn)
+- 타입 import 분리 (`import type { ... }`)
 - 미사용 변수 감지 (\_로 시작하는 변수 제외)
 
-### React
+### 보안
 
-- 화살표 함수 컴포넌트 강제
-- self-closing 태그 사용
-- React 17+ JSX 변환 지원
+- eval() 사용 금지
+- XSS 방지 (dangerouslySetInnerHTML 경고)
+- console.log 경고 (warn, error는 허용)
+- debugger 구문 금지
+
+### 접근성 (a11y)
+
+- 이미지 alt 텍스트 필수
+- ARIA 속성 검증
+- 키보드 탐색 지원
+- 시맨틱 HTML 강제
 
 ### Tailwind CSS
 
@@ -138,12 +160,28 @@ export default [
 - 단축 클래스 사용 (예: px-4 vs pl-4 pr-4)
 - 충돌하는 클래스 감지
 
-### 보안
+### Import 정렬
 
-- eval() 사용 금지
-- XSS 방지 (dangerouslySetInnerHTML 경고)
-- console.log 경고 (warn, error는 허용)
-- debugger 구문 금지
+자동으로 import를 다음 순서로 정렬:
+1. Node.js 내장 모듈
+2. React (최우선)
+3. npm 패키지
+4. 내부 경로 (@/ 별칭)
+5. 상대 경로
+
+## gyeol 프로젝트에서 사용하기
+
+원본 gyeol 프로젝트의 `eslint.config.mjs`:
+
+```js
+import next from "eslint-config-next/core-web-vitals";
+import radpub from "eslint-config-radpub";
+
+export default [
+  ...next,
+  ...radpub,
+];
+```
 
 ## 라이센스
 
