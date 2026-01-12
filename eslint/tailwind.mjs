@@ -19,8 +19,9 @@ const tailwindConfig = [
     },
     settings: {
       "better-tailwindcss": {
-        // Tailwind CSS 진입점 (커스텀 클래스 및 설정 파일)
-        entryPoint: "./src/app/globals.css",
+        // entryPoint는 프로젝트마다 다르므로 자동 감지 사용
+        // 필요시 프로젝트의 eslint.config.mjs에서 오버라이드 가능
+        // entryPoint: "./app/globals.css",
       },
     },
     rules: {
