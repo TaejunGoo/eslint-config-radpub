@@ -1,12 +1,12 @@
 # eslint-config-radpub
 
-Next.js + TypeScript + React를 위한 공유 ESLint 설정 패키지
+TypeScript + React를 위한 공유 ESLint 설정 패키지
 
 ## 특징
 
 - ✅ **TypeScript** - 엄격한 타입 체크 및 모범 사례
 - ✅ **React 19** - 화살표 함수 컴포넌트, self-closing 태그
-- ✅ **Next.js 15** - Core Web Vitals, Image/Link 최적화
+- ✅ **Next.js 지원** - 선택적 Next.js 규칙 (Core Web Vitals, Image/Link 최적화)
 - ✅ **Tailwind CSS** - 클래스 순서, 중복 감지, 단축 클래스
 - ✅ **접근성 (a11y)** - ARIA, 키보드 탐색, 시맨틱 HTML
 - ✅ **보안** - XSS 방지, 코드 인젝션 방지
@@ -16,12 +16,14 @@ Next.js + TypeScript + React를 위한 공유 ESLint 설정 패키지
 ## 설치
 
 ```bash
-pnpm add -D eslint-config-radpub
+pnpm add -D eslint-config-radpub eslint
 ```
 
 ## 사용 방법
 
-### 기본 사용 (모든 규칙 포함)
+### 기본 사용 (React/TypeScript 프로젝트)
+
+일반 React 또는 TypeScript 프로젝트에서 사용:
 
 `eslint.config.mjs`:
 
@@ -30,6 +32,20 @@ import radpub from "eslint-config-radpub";
 
 export default radpub;
 ```
+
+### Next.js 프로젝트
+
+Next.js 프로젝트에서는 별도의 nextjs export를 사용하세요:
+
+`eslint.config.mjs`:
+
+```js
+import radpubNextjs from "eslint-config-radpub/nextjs";
+
+export default radpubNextjs;
+```
+
+**주의:** Next.js 설정을 사용하려면 `next` 패키지가 설치되어 있어야 합니다.
 
 ### 개별 모듈 사용
 

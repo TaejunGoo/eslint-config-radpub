@@ -6,6 +6,7 @@
   "main": "./index.mjs",
   "exports": {
     ".": "./index.mjs",
+    "./nextjs": "./nextjs.mjs",
     "./base": "./eslint/base.mjs",
     "./typescript": "./eslint/typescript.mjs",
     "./react": "./eslint/react.mjs",
@@ -20,6 +21,7 @@
   "files": [
     "eslint",
     "index.mjs",
+    "nextjs.mjs",
     "README.md"
   ],
   "keywords": [
@@ -42,6 +44,14 @@
   },
   "peerDependencies": {
     "eslint": "^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint-config-next": {
+      "optional": true
+    },
+    "next": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@eslint/js": "^9.39.1",
