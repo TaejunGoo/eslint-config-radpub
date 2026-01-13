@@ -14,11 +14,29 @@ pnpm add -D eslint-config-radpub eslint
 
 **Next.js 프로젝트**
 
+기존 `eslint.config.mjs` 파일의 설정 배열 마지막에 `radpub`을 추가합니다.
+
 ```js
 // eslint.config.mjs
 import radpub from "eslint-config-radpub";
 
-export default radpub({ tool: 'next' });
+const eslintConfig = [
+  // ...기존 설정들
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
+  // radpub 설정 추가
+  ...radpub({ tool: 'next' }),
+];
+
+export default eslintConfig;
 ```
 
 **React (Vite) 프로젝트**
@@ -27,7 +45,26 @@ export default radpub({ tool: 'next' });
 // eslint.config.mjs
 import radpub from "eslint-config-radpub";
 
-export default radpub({ tool: 'react' });
+export default defineConfig([
+  // ...기존 설정들
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+  },
+  // radpub 설정 추가
+  ...radpub(),
+]);
+
 ```
 
 ### 3️⃣ 완료!
@@ -38,7 +75,7 @@ export default radpub({ tool: 'react' });
 
 ## 🛠 VS Code 자동 수정 설정 (권장)
 
-저장 시 자동으로 코드를 교정하려면 프로젝트 루트에 `.vscode/settings.json` 파일을 생성하고 아래 설정을 추가하세요.
+[저장 시 자동으로 코드를 교정하려면 프로젝트 루트에 `.vscode/settings.json` 파일을 생성하고 아래 설정을 추가하세요.
 
 ```json
 {
@@ -54,6 +91,15 @@ export default radpub({ tool: 'react' });
   ]
 }
 ```
+
+### 각 설정의 의미
+
+- **`editor.codeActionsOnSave`**: 파일 저장 시 실행할 코드 액션을 지정합니다.
+  - `"source.fixAll.eslint": "explicit"`: ESLint가 자동으로 수정 가능한 모든 문제를 저장 시 자동으로 고칩니다.
+- **`editor.formatOnSave`**
+  - `false`: Prettier 등 다른 포맷터가 저장 시 자동으로 실행되는 것을 방지합니다. (ESLint가 스타일까지 관리하므로 충돌 방지)
+- **`eslint.validate`**
+  - `["javascript","javascriptreact",typescript","typescriptreact"]` ESLint가 검사할 파일 유형을 지정합니다. (js, jsx, ts, tsx)
 
 ---
 
