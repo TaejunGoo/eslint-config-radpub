@@ -36,6 +36,27 @@ export default radpub({ tool: 'react' });
 
 ---
 
+## 🛠 VS Code 자동 수정 설정 (권장)
+
+저장 시 자동으로 코드를 교정하려면 프로젝트 루트에 `.vscode/settings.json` 파일을 생성하고 아래 설정을 추가하세요.
+
+```json
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
+}
+```
+
+---
+
 ## 특징
 
 - ✅ **보안** - XSS 방지, 코드 인젝션 방지
