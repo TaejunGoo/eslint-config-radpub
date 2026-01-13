@@ -138,13 +138,13 @@ ESLint 설정을 생성하는 팩토리 함수입니다.
 
 ```js
 // Next.js + TypeScript
-export default radpub({ tool: 'next' });
+...radpub({ tool: 'next' });
 
 // React + TypeScript
-export default radpub({ tool: 'react' });
+...radpub({ tool: 'react' });
 
 // React + JavaScript (TypeScript 규칙 제외)
-export default radpub({ tool: 'react', typescript: false });
+...radpub({ tool: 'react', typescript: false });
 ```
 
 </details>
