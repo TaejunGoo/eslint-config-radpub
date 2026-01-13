@@ -31,31 +31,16 @@ const securityConfig = [
       // XSS (크로스 사이트 스크립팅) 방지
       // ============================================
 
-      // dangerouslySetInnerHTML 사용 시 경고 (XSS 위험)
-      "react/no-danger": "warn",
-
-      // dangerouslySetInnerHTML과 children을 함께 사용 금지
-      "react/no-danger-with-children": "error",
-
       // javascript: URL 사용 금지 (XSS 위험)
       // 예: <a href="javascript:alert('xss')"> (X)
       "no-script-url": "error",
-
-      // target="_blank" 사용 시 rel="noopener noreferrer" 필수 (보안 및 성능)
-      // 예: <a target="_blank" rel="noopener noreferrer"> (O)
-      "react/jsx-no-target-blank": [
-        "warn",
-        {
-          enforceDynamicLinks: "always",
-        },
-      ],
 
       // ============================================
       // 개발 도구 및 디버깅
       // ============================================
 
       // console.log 사용 경고 (민감한 정보 노출 가능)
-      // warn, error는 허용
+      // 프레임워크 기본값은 off이나, 보안을 위해 warn 유지
       "no-console": [
         "warn",
         {
@@ -71,6 +56,7 @@ const securityConfig = [
       // ============================================
 
       // alert/confirm/prompt 사용 경고 (UX 저하, 피싱 가능성)
+      // 프레임워크 기본값은 off이나, 보안을 위해 warn 유지
       "no-alert": "warn",
     },
   },

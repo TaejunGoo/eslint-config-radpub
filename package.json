@@ -1,22 +1,18 @@
 {
   "name": "eslint-config-radpub",
-  "version": "2.2.0",
-  "description": "Core ESLint configuration for TypeScript + React + Next.js projects (framework-agnostic)",
+  "version": "1.0.0",
+  "description": "RadPub 팀 공용 ESLint 설정 - 보안, 접근성, 코드 품질 규칙 포함",
   "type": "module",
   "main": "./index.mjs",
   "exports": {
     ".": "./index.mjs",
-    "./with-tailwind": "./index.mjs",
-    "./standalone": "./index.mjs",
-    "./standalone-with-tailwind": "./index.mjs",
     "./base": "./eslint/base.mjs",
     "./typescript": "./eslint/typescript.mjs",
     "./security": "./eslint/security.mjs",
+    "./react-security": "./eslint/react-security.mjs",
     "./imports": "./eslint/imports.mjs",
-    "./tailwind": "./eslint/tailwind.mjs",
     "./accessibility": "./eslint/accessibility.mjs",
-    "./stylistic": "./eslint/stylistic.mjs",
-    "./ignores": "./eslint/ignores.mjs"
+    "./stylistic": "./eslint/stylistic.mjs"
   },
   "files": [
     "eslint",
@@ -29,7 +25,6 @@
     "nextjs",
     "typescript",
     "react",
-    "tailwindcss",
     "radpub"
   ],
   "author": "radPub",
@@ -43,22 +38,13 @@
   },
   "peerDependencies": {
     "eslint": "^9.0.0",
-    "eslint-plugin-better-tailwindcss": ">=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "eslint-plugin-better-tailwindcss": {
-      "optional": true
-    }
+    "typescript-eslint": "^8.0.0"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.1",
     "@stylistic/eslint-plugin": "^5.6.1",
     "eslint-plugin-import": "^2.32.0",
-    "globals": "^15.14.0",
-    "typescript-eslint": "^8.48.1"
-  },
-  "optionalDependencies": {
-    "eslint-plugin-better-tailwindcss": "^3.7.11"
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.3"
   },
   "devDependencies": {
     "eslint": "^9.39.1"

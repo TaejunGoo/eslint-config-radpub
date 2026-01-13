@@ -3,117 +3,92 @@
  *
  * TypeScript + React + Next.js 프로젝트를 위한 핵심 ESLint 설정
  *
- * 이 설정은 React/Next.js 자체 규칙은 포함하지 않습니다.
- * React나 Next.js 프로젝트에서는 해당 프레임워크의 기본 설정과 함께 사용하세요.
- *
  * @example
- * // Next.js 프로젝트 (eslint.config.mjs)
- * import next from "eslint-config-next/core-web-vitals";
+ * // Next.js 프로젝트 (기본값)
  * import radpub from "eslint-config-radpub";
  *
- * export default [
- *   ...next,
- *   ...radpub,
- * ];
+ * export default radpub();
  *
  * @example
- * // 개별 모듈 사용
- * import base from "eslint-config-radpub/base";
- * import typescript from "eslint-config-radpub/typescript";
- * export default [...base, ...typescript];
+ * // React (Vite) 프로젝트
+ * import radpub from "eslint-config-radpub";
+ *
+ * export default radpub({
+ *   tool: 'react', // TypeScript 및 Import 규칙 포함
+ * });
  */
 
 import accessibility from "./eslint/accessibility.mjs";
 import base from "./eslint/base.mjs";
-import ignores from "./eslint/ignores.mjs";
-import imports from "./eslint/imports.mjs";
+import reactSecurity from "./eslint/react-security.mjs";
 import security from "./eslint/security.mjs";
 import stylistic from "./eslint/stylistic.mjs";
-import tailwind from "./eslint/tailwind.mjs";
 import typescript from "./eslint/typescript.mjs";
+import importsConfig from "./eslint/imports.mjs";
 
 /**
- * 기본 설정 (Next.js/React 프로젝트용)
- *
- * Next.js와 충돌을 피하기 위해 TypeScript와 imports 모듈 제외
- * Next.js는 이미 @typescript-eslint와 eslint-plugin-import를 포함합니다
- *
- * 포함된 규칙:
- * - 보안 규칙
- * - 웹 접근성
- * - 코드 스타일 일관성
- *
- * Tailwind CSS는 선택적으로 추가하세요 (아래 with-tailwind export 참고)
+ * @typedef {Object} ConfigOptions
+ * @property {'next' | 'react'} [tool] - 프로젝트 타입. 'next'는 Next.js가 처리하는 규칙 제외, 'react'는 전체 포함.
+ * @property {boolean} [typescript] - TypeScript 규칙 포함 여부 (기본값: true). tool이 'react'일 때만 적용.
  */
-const radpubConfig = [
-  ...base,
-  // ...typescript,  // Next.js가 이미 제공 (충돌 방지)
-  ...accessibility,
-  ...security,
-  ...stylistic,
-  // ...imports,     // Next.js가 이미 제공 (충돌 방지)
-  // ...tailwind,    // 선택 사항
-  ...ignores,
-];
 
 /**
- * Tailwind CSS 포함 설정 (Next.js + Tailwind 프로젝트용)
+ * RadPub ESLint 설정 생성
+ * @param {ConfigOptions} [options]
+ * @returns {Array} ESLint 설정 배열
  */
-const withTailwindConfig = [
-  ...base,
-  // ...typescript,
-  ...accessibility,
-  ...security,
-  ...stylistic,
-  // ...imports,
-  ...tailwind,
-  ...ignores,
-];
+const radpub = (options = {}) => {
+  const { tool = 'react', typescript: useTypescript = true } = options;
 
-/**
- * Standalone 설정 (비Next.js 프로젝트용)
- *
- * TypeScript, imports 포함한 모든 규칙
- * Vite, CRA 등 Next.js 외의 프로젝트에서 사용
- */
-const standaloneConfig = [
-  ...base,
-  ...typescript,
-  ...accessibility,
-  ...security,
-  ...stylistic,
-  ...imports,
-  // ...tailwind,  // 선택 사항
-  ...ignores,
-];
+  // 옵션 유효성 검증
+  if (!['next', 'react'].includes(tool)) {
+    throw new Error(`[eslint-config-radpub] Invalid tool option: "${tool}". Must be "next" or "react".`);
+  }
 
-/**
- * Standalone + Tailwind 설정
- */
-const standaloneWithTailwindConfig = [
-  ...base,
-  ...typescript,
-  ...accessibility,
-  ...security,
-  ...stylistic,
-  ...imports,
-  ...tailwind,
-  ...ignores,
-];
+  const config = [
+    ...base,
+    ...security,
+    ...stylistic,
+  ];
 
-export default radpubConfig;
+  // React(Vite 등) 환경: 플러그인 포함 전체 설정
+  if (tool === 'react') {
+    config.push(...accessibility);
+    config.push(...reactSecurity);
+    if (useTypescript) {
+      config.push(...typescript);
+    }
+    config.push(...importsConfig);
+  } 
+  // Next.js 환경: 플러그인 충돌 방지를 위해 규칙만 추가
+  else if (tool === 'next') {
+    // Next.js가 이미 jsx-a11y, react, react-hooks 플러그인을 활성화했으므로 규칙만 추가
+    config.push({
+      rules: {
+        ...accessibility[0].rules,
+        ...reactSecurity[0].rules,
+      }
+    });
+    
+    // Import 규칙 및 설정 추가 (Next.js에 이미 포함된 import 플러그인 재정의 방지)
+    config.push({
+      settings: importsConfig[0].settings,
+      rules: importsConfig[0].rules,
+    });
+  }
 
-// 개별 모듈 및 프리셋 export
+  return config;
+};
+
+export default radpub;
+
+// 개별 모듈 Export
 export {
   accessibility,
   base,
-  ignores,
-  imports,
   security,
-  standaloneConfig as standalone,
-  standaloneWithTailwindConfig as standaloneWithTailwind,
+  reactSecurity,
   stylistic,
-  tailwind,
   typescript,
-  withTailwindConfig as withTailwind,
+  importsConfig as imports,
 };

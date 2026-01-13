@@ -1,3 +1,5 @@
+import jsxA11y from "eslint-plugin-jsx-a11y";
+
 /**
  * 웹 접근성 ESLint 설정
  *
@@ -8,11 +10,14 @@
  * - 스크린 리더 호환성
  * - 색상 대비 경고
  *
- * 참고: jsx-a11y 플러그인은 Next.js 설정에 이미 포함되어 있음
- * 이 설정은 Next.js 기본값 위에 추가 규칙만 적용
+ * eslint-plugin-jsx-a11y 사용
+ * Next.js 프로젝트에서는 중복 등록되지만 문제없음
  */
 const accessibilityConfig = [
   {
+    plugins: {
+      "jsx-a11y": jsxA11y,
+    },
     rules: {
       // ============================================
       // 이미지 및 미디어 접근성

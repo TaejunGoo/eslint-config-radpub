@@ -19,11 +19,8 @@ const importsConfig = [
     },
     settings: {
       "import/resolver": {
-        typescript: {
-          // TypeScript 타입 정의 파일 해석 시도
-          alwaysTryTypes: true,
-          // tsconfig.json에 정의된 경로 별칭 사용
-          project: "./tsconfig.json",
+        node: {
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
       },
     },
@@ -76,6 +73,18 @@ const importsConfig = [
           },
         },
       ],
+
+      // ============================================
+      // Import 최적화
+      // ============================================
+
+      // 동일한 모듈에서 여러 번 import 금지
+      // 예: import {a} from 'x'; import {b} from 'x'; (X)
+      "import/no-duplicates": "error",
+
+      // 순환 참조 방지 (성능 및 유지보수)
+      // 예: A → B → A (X)
+      "import/no-cycle": "warn",
     },
   },
 ];
