@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### 📐 코드 스타일 규칙
 
 - 들여쓰기: 스페이스 2칸
-- 따옴표: 큰따옴표 사용
+- 따옴표: 작은따옴표 사용
 - 세미콜론: 필수
 - Trailing comma: 멀티라인에서 필수
 - 파일 끝 빈 줄 필수

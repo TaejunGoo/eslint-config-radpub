@@ -5,7 +5,7 @@ import stylistic from "@stylistic/eslint-plugin";
  *
  * 코드 포맷팅 및 스타일 일관성 규칙
  * - 들여쓰기 (스페이스 2칸)
- * - 따옴표 스타일 (큰따옴표)
+ * - 따옴표 스타일 (작은따옴표)
  * - 세미콜론 (필수)
  * - 공백 및 괄호
  * - 줄 바꿈 및 빈 줄
@@ -25,17 +25,17 @@ const stylisticConfig = [
       // 들여쓰기는 스페이스 2칸
       "@stylistic/indent": ["error", 2],
 
-      // 문자열은 큰따옴표 사용
-      // 예: "hello" (O), 'hello' (X)
-      "@stylistic/quotes": ["error", "double"],
+      // 문자열은 작은따옴표 사용
+      // 예: 'hello' (O), "hello" (X)
+      "@stylistic/quotes": ["error", "single"],
 
       // 세미콜론 필수
       // 예: const x = 1; (O), const x = 1 (X)
       "@stylistic/semi": ["error", "always"],
 
-      // JSX 속성값은 큰따옴표 사용
-      // 예: <div className="container"> (O)
-      "@stylistic/jsx-quotes": ["error", "prefer-double"],
+      // JSX 속성값은 작은따옴표 사용
+      // 예: <div className='container'> (O)
+      "@stylistic/jsx-quotes": ["error", "prefer-single"],
 
       // ============================================
       // 공백 및 괄호
