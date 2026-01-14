@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd TypeScript type definitions and update README structure\n\n- Add index.d.ts and legacy/index.d.cts for TypeScript support\n- Update package.json with types field and export conditions\n- Add @types/eslint as devDependency\n- Reorganize README to prioritize ESLint 9 documentation\n- Collapse ESLint 8 legacy section into details tag\n- Bump version to 1.0.1\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
