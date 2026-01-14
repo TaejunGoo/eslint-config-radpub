@@ -1,6 +1,6 @@
 {
   "name": "@taejun.goo/eslint-config-radpub",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "RadPub 팀 공용 ESLint 설정",
   "publishConfig": {
     "access": "public"
@@ -45,25 +45,23 @@
     "eslintconfig",
     "nextjs",
     "typescript",
-    "react",
-    "radpub"
+    "react"
   ],
   "author": "radPub",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TaejunGoo/eslint-config-radpub/.git"
+    "url": "https://github.com/TaejunGoo/eslint-config-radpub.git"
   },
   "bugs": {
     "url": "https://github.com/TaejunGoo/eslint-config-radpub/issues"
   },
   "peerDependencies": {
-    "eslint": "^8.0.0 || ^9.0.0"
+    "eslint": "^8.0.0 || ^9.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0"
   },
   "peerDependenciesMeta": {
-    "typescript-eslint": {
-      "optional": true
-    },
     "@typescript-eslint/parser": {
       "optional": true
     },
