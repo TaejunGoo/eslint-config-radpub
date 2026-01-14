@@ -24,3 +24,6 @@ docs/
 # Misc
 .DS_Store
 *.log
+*.tgz
+tmpclaude-*
+.claude/

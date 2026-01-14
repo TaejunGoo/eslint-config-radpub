@@ -1,7 +1,10 @@
 {
-  "name": "eslint-config-radpub",
+  "name": "@taejun.goo/eslint-config-radpub",
   "version": "1.0.0",
   "description": "RadPub 팀 공용 ESLint 설정 - 보안, 접근성, 코드 품질 규칙 포함",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./index.mjs",
   "exports": {
@@ -12,10 +15,20 @@
     "./react-security": "./eslint/react-security.mjs",
     "./imports": "./eslint/imports.mjs",
     "./accessibility": "./eslint/accessibility.mjs",
-    "./stylistic": "./eslint/stylistic.mjs"
+    "./stylistic": "./eslint/stylistic.mjs",
+    "./legacy": "./legacy/index.cjs",
+    "./legacy/next": "./legacy/next.cjs",
+    "./legacy/base": "./legacy/base.cjs",
+    "./legacy/typescript": "./legacy/typescript.cjs",
+    "./legacy/security": "./legacy/security.cjs",
+    "./legacy/react-security": "./legacy/react-security.cjs",
+    "./legacy/imports": "./legacy/imports.cjs",
+    "./legacy/accessibility": "./legacy/accessibility.cjs",
+    "./legacy/stylistic": "./legacy/stylistic.cjs"
   },
   "files": [
     "eslint",
+    "legacy",
     "index.mjs",
     "README.md"
   ],
@@ -37,8 +50,18 @@
     "url": "https://github.com/your-username/eslint-config-radpub/issues"
   },
   "peerDependencies": {
-    "eslint": "^9.0.0",
-    "typescript-eslint": "^8.0.0"
+    "eslint": "^8.0.0 || ^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript-eslint": {
+      "optional": true
+    },
+    "@typescript-eslint/parser": {
+      "optional": true
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@stylistic/eslint-plugin": "^5.6.1",

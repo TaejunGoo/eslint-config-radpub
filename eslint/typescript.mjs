@@ -33,7 +33,6 @@ const typescriptConfig = [
         {
           prefer: "type-imports",
           fixStyle: "separate-type-imports",
-          disallowInlineImports: true,
         },
       ],
 

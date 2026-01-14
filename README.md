@@ -1,24 +1,110 @@
-# eslint-config-radpub
+# @taejun.goo/eslint-config-radpub
 
 퍼블리싱 팀을 위한 공용 ESLint 설정 패키지
 
-## 🚀 빠른 시작
+## 📦 지원 버전
+
+- **ESLint 9** (권장) - Flat Config 형식
+- **ESLint 8** (Legacy) - 전통적인 .eslintrc 형식
+
+---
+
+## 🚀 빠른 시작 (ESLint 8)
+
+> Next.js 14 이하 또는 ESLint 8을 사용하는 프로젝트
 
 ### 1️⃣ 설치
 
+**Next.js 프로젝트**
+
 ```bash
-pnpm add -D eslint-config-radpub eslint
+npm install -D @taejun.goo/eslint-config-radpub @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
+
+**React (Vite) 프로젝트**
+
+```bash
+npm install -D @taejun.goo/eslint-config-radpub eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+```
+
+> **참고**: `@taejun.goo/eslint-config-radpub`을 설치하면 필요한 모든 플러그인(`@stylistic/eslint-plugin`, `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, `eslint-plugin-import`)이 자동으로 함께 설치됩니다.
 
 ### 2️⃣ 설정 파일 생성
 
 **Next.js 프로젝트**
 
+> ⚠️ **중요**: `@taejun.goo/eslint-config-radpub/legacy/next`는 반드시 Next.js 설정(`next/core-web-vitals`, `next/typescript`) **뒤에** 추가해야 합니다.
+
+`.eslintrc.json`:
+```json
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "@taejun.goo/eslint-config-radpub/legacy/next"
+  ]
+}
+```
+
+**React (Vite) 프로젝트**
+
+`.eslintrc.json`:
+```json
+{
+  "extends": ["@taejun.goo/eslint-config-radpub/legacy"]
+}
+```
+
+**개별 모듈 사용**
+
+```js
+module.exports = {
+  extends: [
+    '@taejun.goo/eslint-config-radpub/legacy/base',
+    '@taejun.goo/eslint-config-radpub/legacy/security',
+    '@taejun.goo/eslint-config-radpub/legacy/stylistic',
+    // 필요한 것만 선택
+  ]
+}
+```
+
+### 3️⃣ 완료!
+
+이제 프로젝트에서 ESLint를 실행하면 보안, 접근성, 컴포넌트 품질 규칙이 자동으로 적용됩니다.
+
+---
+
+## 🚀 빠른 시작 (ESLint 9)
+
+> 최신 프로젝트 (Next.js 15+, Vite 등)
+
+### 1️⃣ 설치
+
+**Next.js 프로젝트**
+
+```bash
+npm install -D @taejun.goo/eslint-config-radpub
+```
+
+**React (Vite) 프로젝트**
+
+```bash
+npm install -D @taejun.goo/eslint-config-radpub eslint
+```
+
+> **참고**: `@taejun.goo/eslint-config-radpub`을 설치하면 필요한 모든 플러그인이 자동으로 함께 설치됩니다.
+
+### 2️⃣ 설정 파일 생성
+
+**Next.js 프로젝트**
+
+> ⚠️ **중요**: `radpub({ tool: 'next' })`는 반드시 Next.js 설정(`nextVitals`, `nextTs`) **뒤에** 추가해야 합니다.
+
 기존 `eslint.config.mjs` 파일의 설정 배열 마지막에 `radpub`을 추가합니다.
 
 ```js
 // eslint.config.mjs
-import radpub from "eslint-config-radpub";
+import radpub from "@taejun.goo/eslint-config-radpub";
 
 const eslintConfig = [
   // ...기존 설정들
@@ -32,7 +118,7 @@ const eslintConfig = [
     'build/**',
     'next-env.d.ts',
   ]),
-  // radpub 설정 추가
+  // radpub 설정 추가 (반드시 마지막에!)
   ...radpub({ tool: 'next' }),
 ];
 
@@ -43,7 +129,7 @@ export default eslintConfig;
 
 ```js
 // eslint.config.mjs
-import radpub from "eslint-config-radpub";
+import radpub from "@taejun.goo/eslint-config-radpub";
 
 export default defineConfig([
   // ...기존 설정들
@@ -114,7 +200,7 @@ export default defineConfig([
 > **왜 React/Next.js 기본 규칙이 없나요?**
 >
 > Next.js는 이미 자체 ESLint 설정(`eslint-config-next`)을 제공하며, React 및 TypeScript 규칙도 포함되어 있습니다.
-> `eslint-config-radpub`은 프레임워크 규칙과 독립적으로 작동하는 코어 규칙만 제공하여 플러그인 충돌을 방지합니다.
+> `@taejun.goo/eslint-config-radpub`은 프레임워크 규칙과 독립적으로 작동하는 코어 규칙만 제공하여 플러그인 충돌을 방지합니다.
 
 ---
 
@@ -155,7 +241,7 @@ ESLint 설정을 생성하는 팩토리 함수입니다.
 필요한 규칙만 선택적으로 import하여 사용할 수 있습니다:
 
 ```js
-import { base, typescript, security, accessibility } from "eslint-config-radpub";
+import { base, typescript, security, accessibility } from "@taejun.goo/eslint-config-radpub";
 
 export default [
   ...base,
@@ -185,7 +271,7 @@ export default [
 ### 규칙 오버라이드
 
 ```js
-import radpub from "eslint-config-radpub";
+import radpub from "@taejun.goo/eslint-config-radpub";
 
 export default [
   ...radpub({ tool: 'next' }),
@@ -202,7 +288,7 @@ export default [
 ### ignores 패턴 추가
 
 ```js
-import radpub from "eslint-config-radpub";
+import radpub from "@taejun.goo/eslint-config-radpub";
 
 export default [
   ...radpub({ tool: 'next' }),
