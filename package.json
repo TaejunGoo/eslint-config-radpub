@@ -1,7 +1,7 @@
 {
   "name": "@taejun.goo/eslint-config-radpub",
   "version": "1.0.1",
-  "description": "RadPub 팀 공용 ESLint 설정 - 보안, 접근성, 코드 품질 규칙 포함",
+  "description": "RadPub 팀 공용 ESLint 설정",
   "publishConfig": {
     "access": "public"
   },
@@ -52,10 +52,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/eslint-config-radpub.git"
+    "url": "https://github.com/TaejunGoo/eslint-config-radpub/.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/eslint-config-radpub/issues"
+    "url": "https://github.com/TaejunGoo/eslint-config-radpub/issues"
   },
   "peerDependencies": {
     "eslint": "^8.0.0 || ^9.0.0"
