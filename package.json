@@ -1,6 +1,6 @@
 {
   "name": "@taejun.goo/eslint-config-radpub",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "RadPub 팀 공용 ESLint 설정",
   "publishConfig": {
     "access": "public"
